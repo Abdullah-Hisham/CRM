@@ -49,3 +49,7 @@ class AddRecordForm(forms.ModelForm):
 	class Meta:
 		model = Record
 		exclude = ("user",)
+class RecordSearchForm(forms.Form):
+    country = forms.CharField(required=False, max_length=100)
+    address = forms.CharField(required=False, max_length=200)
+    phone_number = forms.CharField(required=False, max_length=20)

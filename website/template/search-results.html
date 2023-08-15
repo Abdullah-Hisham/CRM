@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+    <style>
+        /* قم بتحسين مظهر الاقتراحات هنا */
+    </style>
+</head>
+<body>
+    <h1>Search Records</h1>
+    <form method="get" action="{% url 'search_records' %}">
+        {{ search_form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+
+    <h2>Search Results:</h2>
+    <ul>
+        {% for record in results %}
+            <li>{{ record.country }} - {{ record.address }} - {{ record.phone_number }}</li>
+        {% empty %}
+            <li>No results found.</li>
+        {% endfor %}
+    </ul>
+
+    <script>
+        // تحقق من أنه عند كتابة الحروف يتم تنفيذ البحث واستعراض الاقتراحات هنا
+    </script>
+</body>
+</html>
+<style>
+    /* أنماط CSS لنموذج البحث والنتائج */
+    /* ... */
+
+    /* أنماط CSS لعرض الاقتراحات */
+    .suggestions {
+        position: absolute;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+        max-height: 150px;
+        overflow-y: auto;
+    }
+
+    .suggestion {
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .suggestion:hover {
+        background-color: #f0f0f0;
+    }
+</style>

@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .forms import SignUpForm, AddRecordForm
+from .forms import *
 from .models import Record
 
 
@@ -100,3 +100,21 @@ def update_record(request, pk):
 	else:
 		messages.success(request, "You Must Be Logged In...")
 		return redirect('home')
+def search_records(request):
+    search_form = RecordSearchForm(request.GET)
+    results = Record.objects.all()
+
+    if search_form.is_valid():
+        country = search_form.cleaned_data['country']
+        address = search_form.cleaned_data['address']
+        phone_number = search_form.cleaned_data['phone_number']
+
+        if country:
+            results = results.filter(country__icontains=country)
+        if address:
+            results = results.filter(address__icontains=address)
+        if phone_number:
+            results = results.filter(phone_number__icontains=phone_number)
+
+    context = {'search_form': search_form, 'results': results}
+    return render(request, '/home/abdullah/CRM_with_Django/crm/website/template/search-results.html', context)

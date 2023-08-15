@@ -8,6 +8,11 @@
   </head>
   <body>
     {% include 'navbar.html' %}
+    <form method="get" action="{% url 'search_records' %}">
+      {{ search_form.as_p }}
+      <button type="submit">Search</button>
+  </form>
+  
     <div class="container">
       <br/>
       {% if messages %}
